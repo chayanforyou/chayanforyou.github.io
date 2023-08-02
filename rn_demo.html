@@ -11,7 +11,7 @@
           someParameter: 42,
         };
         // Send the message to React Native
-        window.postMessage(JSON.stringify(message));
+        window.ReactNativeWebView.postMessage(JSON.stringify(message));
       }
     </script>
   </body>
