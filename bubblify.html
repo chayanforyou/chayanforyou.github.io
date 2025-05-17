@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bubblify</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      background: #f0f7fb;
+      display: flex;
+      justify-content: center;
+      padding: 40px 16px;
+      margin: 0;
+    }
+    .card {
+      background: white;
+      padding: 24px;
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      max-width: 600px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 24px;
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+    label {
+      font-weight: 600;
+      display: block;
+      margin-top: 15px;
+    }
+    input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      font-size: 16px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+    .unit-button-container {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-top: 10px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .unit-selection {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .unit-selection label {
+      font-weight: normal;
+    }
+    button {
+      padding: 12px 20px;
+      font-size: 16px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .divider {
+      height: 1px;
+      background: #ccc;
+      margin: 30px 0 20px;
+    }
+    .result {
+      background: #EAF4FE;
+      padding: 20px;
+      border-radius: 10px;
+    }
+    .result h3 {
+      margin-top: 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .result ul {
+      list-style: none;
+      padding-left: 0;
+    }
+    .result ul li {
+      position: relative;
+      padding-left: 2em;
+      margin-bottom: 6px;
+    }
+    .result ul li::before {
+      content: '';
+      position: absolute;
+      left: 0.6em;
+      top: 0.5em;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+    .result ul li:nth-child(1)::before { background-color: #6c4f2c; }
+    .result ul li:nth-child(2)::before { background-color: #0056b3; }
+    .result ul li:nth-child(3)::before { background-color: #00796b; }
+    .result ul li:nth-child(4)::before { background-color: #6a1b9a; }
+
+    .instructions {
+      background: #FFF7E1;
+      padding: 20px;
+      border-left: 5px solid #F7C132;
+      margin-top: 25px;
+      border-radius: 10px;
+    }
+    .instructions h3 {
+      margin-top: 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    ol {
+      padding-left: 20px;
+    }
+
+    /* Mobile responsiveness */
+    @media (max-width: 480px) {
+      .unit-button-container {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .unit-selection {
+        justify-content: space-around;
+      }
+      button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <h2>🫧 Magic Bubbles Mixer</h2>
+
+    <label for="amount">Solution Amount</label>
+    <input type="number" id="amount" value="1" min="0.1" step="0.1">
+
+    <div class="unit-button-container">
+      <div class="unit-selection">
+        <label><input type="radio" name="unit" value="l" checked> Liter (L)</label>
+        <label><input type="radio" name="unit" value="ml"> Milliliter (ml)</label>
+      </div>
+      <button onclick="calculateSolution()">Calculate Ingredients</button>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="result" id="result"></div>
+
+    <div class="instructions">
+      <h3>🧪 Instructions</h3>
+      <ol>
+        <li>Pour the calculated amount of warm water into a large container.</li>
+        <li>Add the measured dish soap and stir gently to avoid bubbles.</li>
+        <li>Mix in the glycerin (or sugar/corn syrup).</li>
+        <li>Stir in the baking powder (optional).</li>
+        <li>Let the mixture rest for at least 1 hour or overnight for best results.</li>
+        <li>Enjoy making big and strong bubbles!</li>
+      </ol>
+    </div>
+  </div>
+
+  <script>
+    function formatVolume(value) {
+      return value >= 1000 ? `${(value / 1000).toFixed(1)} L` : `${value.toFixed(0)} mL`;
+    }
+
+    function calculateSolution() {
+      const amount = parseFloat(document.getElementById('amount').value);
+      const unit = document.querySelector('input[name="unit"]:checked').value;
+
+      if (isNaN(amount) || amount <= 0) {
+        alert("Please enter a valid amount.");
+        return;
+      }
+
+      const totalMl = unit === "l" ? amount * 1000 : amount;
+      const baseVolume = 1900;
+
+      const multiplier = totalMl / baseVolume;
+
+      const water = 1900 * multiplier;
+      const dishSoap = 250 * multiplier;
+      const glycerinMl = 60 * multiplier;
+      const glycerinTbsp = glycerinMl / 15;
+      const bakingPowderGm = 10 * multiplier;
+      const bakingPowderTsp = bakingPowderGm / 5;
+
+      const result = `
+        <h3>🧴 Required Ingredients</h3>
+        <ul>
+          <li><strong>Warm Water:</strong> ${formatVolume(water)}</li>
+          <li><strong>Dish Soap:</strong> ${formatVolume(dishSoap)}</li>
+          <li><strong>Glycerin (or Sugar/Corn Syrup):</strong> ${formatVolume(glycerinMl)} (${glycerinTbsp.toFixed(1)} tbsp)</li>
+          <li><strong>Baking Powder (optional):</strong> ${bakingPowderGm.toFixed(0)} g (${bakingPowderTsp.toFixed(1)} tsp)</li>
+        </ul>
+        <p style="margin-top: 10px;">Let the mixture rest for at least 1 hour for best bubbles!</p>
+      `;
+
+      document.getElementById('result').innerHTML = result;
+      document.getElementById('result').style.display = "block";
+    }
+
+    window.onload = calculateSolution;
+  </script>
+
+</body>
+</html>
