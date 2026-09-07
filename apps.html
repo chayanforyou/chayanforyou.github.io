@@ -134,12 +134,10 @@
             border-color: rgba(25, 103, 210, 0.2);
         }
 
-        /* 3 Columns desktop grid matching Google Play Top Charts */
+        /* 3 items per row desktop grid */
         .apps-container {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            grid-auto-flow: column;
-            grid-template-rows: repeat(3, auto);
             gap: 16px 36px;
         }
 
@@ -258,7 +256,6 @@
         @media (max-width: 991px) and (min-width: 641px) {
             .apps-container {
                 grid-template-columns: repeat(2, 1fr);
-                grid-template-rows: repeat(4, auto);
                 gap: 14px 24px;
             }
         }
@@ -407,14 +404,6 @@
                 ? appsList
                 : appsList.filter(app => app.category === cat);
 
-            // Layout row/column adjustment when filtered
-            if (cat === 'all') {
-                container.style.gridAutoFlow = 'column';
-                container.style.gridTemplateRows = 'repeat(3, auto)';
-            } else {
-                container.style.gridAutoFlow = 'row';
-                container.style.gridTemplateRows = 'none';
-            }
 
             container.innerHTML = filteredApps.map((app, index) => {
                 return `
