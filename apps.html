@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apps by Chayan Mistry</title>
+    <meta name="description" content="Android apps by Chayan Mistry on Google Play Store">
+    <link rel="shortcut icon" href="favicon.png">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap"
+        rel="stylesheet">
+
+    <script>
+        // Support ?theme=light or ?theme=dark via URL query parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const themeParam = urlParams.get('theme')?.toLowerCase();
+        if (themeParam === 'light' || themeParam === 'dark') {
+            document.documentElement.setAttribute('data-theme', themeParam);
+        }
+    </script>
+
+    <style>
+        :root,
+        [data-theme="light"] {
+            --bg-color: #ffffff;
+            --hover-bg: #f8f9fa;
+            --active-bg: #f1f3f4;
+            --text-primary: #202124;
+            --text-secondary: #5f6368;
+            --rank-color: #5f6368;
+            --chip-bg: #f1f3f4;
+            --chip-active-bg: #e8f0fe;
+            --chip-active-text: #1967d2;
+            --icon-border: rgba(0, 0, 0, 0.08);
+            --icon-shadow: 0 1px 2px rgba(60, 64, 67, 0.12), 0 1px 3px 1px rgba(60, 64, 67, 0.08);
+            --star-color: #5f6368;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root:not([data-theme="light"]) {
+                --bg-color: #212121;
+                --hover-bg: #2d2d2d;
+                --active-bg: #383838;
+                --text-primary: #FFFFFF;
+                --text-secondary: #CCCCCC;
+                --rank-color: #CCCCCC;
+                --chip-bg: #2d2d2d;
+                --chip-active-bg: #1e3a5f;
+                --chip-active-text: #8ab4f8;
+                --icon-border: rgba(255, 255, 255, 0.12);
+                --icon-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+                --star-color: #CCCCCC;
+            }
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #212121;
+            --hover-bg: #2d2d2d;
+            --active-bg: #383838;
+            --text-primary: #FFFFFF;
+            --text-secondary: #CCCCCC;
+            --rank-color: #CCCCCC;
+            --chip-bg: #2d2d2d;
+            --chip-active-bg: #1e3a5f;
+            --chip-active-text: #8ab4f8;
+            --icon-border: rgba(255, 255, 255, 0.12);
+            --icon-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+            --star-color: #CCCCCC;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Roboto', -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.5;
+            min-height: 100vh;
+            padding: 28px 24px;
+        }
+
+        .apps-wrapper {
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        /* Filter Chips */
+        .filter-chips {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding-bottom: 8px;
+            margin-bottom: 24px;
+            scrollbar-width: none;
+        }
+
+        .filter-chips::-webkit-scrollbar {
+            display: none;
+        }
+
+        .chip {
+            padding: 7px 16px;
+            border-radius: 18px;
+            background: var(--chip-bg);
+            color: var(--text-primary);
+            font-size: 13px;
+            font-weight: 500;
+            border: 1px solid transparent;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.15s ease;
+            user-select: none;
+            font-family: inherit;
+        }
+
+        .chip:hover {
+            opacity: 0.9;
+        }
+
+        .chip.active {
+            background: var(--chip-active-bg);
+            color: var(--chip-active-text);
+            border-color: rgba(25, 103, 210, 0.2);
+        }
+
+        /* 3 Columns desktop grid matching Google Play Top Charts */
+        .apps-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-auto-flow: column;
+            grid-template-rows: repeat(3, auto);
+            gap: 16px 36px;
+        }
+
+        /* App Item / Card */
+        .app-item {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: inherit;
+            padding: 10px 14px;
+            border-radius: 16px;
+            transition: background-color 0.15s ease, transform 0.15s ease;
+            user-select: none;
+        }
+
+        .app-item:hover {
+            background-color: var(--hover-bg);
+        }
+
+        .app-item:active {
+            background-color: var(--active-bg);
+            transform: scale(0.99);
+        }
+
+        /* Rank Number */
+        .app-rank {
+            font-family: 'Roboto', sans-serif;
+            font-size: 14px;
+            font-weight: 400;
+            color: var(--rank-color);
+            width: 22px;
+            min-width: 22px;
+            text-align: left;
+            margin-right: 14px;
+        }
+
+        /* Squircle App Icon */
+        .app-icon-wrapper {
+            position: relative;
+            width: 64px;
+            height: 64px;
+            min-width: 64px;
+            min-height: 64px;
+            border-radius: 16px;
+            margin-right: 16px;
+            box-shadow: var(--icon-shadow);
+            overflow: hidden;
+            background-color: transparent;
+            border: none;
+        }
+
+        .app-icon {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            border-radius: 16px;
+            border: none;
+            transition: transform 0.2s ease;
+        }
+
+        .app-item:hover .app-icon {
+            transform: scale(1.03);
+        }
+
+        /* Details */
+        .app-details {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-width: 0;
+            flex: 1;
+        }
+
+        .app-name {
+            font-family: 'Google Sans', 'Roboto', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-primary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            line-height: 1.35;
+            margin-bottom: 2px;
+        }
+
+        .app-category {
+            font-size: 12px;
+            color: var(--text-secondary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            line-height: 1.35;
+            margin-bottom: 2px;
+        }
+
+        .app-rating {
+            display: inline-flex;
+            align-items: center;
+            font-size: 12px;
+            color: var(--text-secondary);
+            gap: 3px;
+            line-height: 1.3;
+        }
+
+        .star-icon {
+            width: 11px;
+            height: 11px;
+            fill: var(--star-color);
+            vertical-align: middle;
+            position: relative;
+            top: -0.5px;
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 991px) and (min-width: 641px) {
+            .apps-container {
+                grid-template-columns: repeat(2, 1fr);
+                grid-template-rows: repeat(4, auto);
+                gap: 14px 24px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            body {
+                padding: 16px 12px;
+            }
+
+            .filter-chips {
+                margin-bottom: 16px;
+            }
+
+            .apps-container {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .app-item {
+                padding: 10px 8px;
+            }
+
+            .app-rank {
+                font-size: 13px;
+                width: 20px;
+                min-width: 20px;
+                margin-right: 12px;
+            }
+
+            .app-icon-wrapper {
+                width: 58px;
+                height: 58px;
+                min-width: 58px;
+                min-height: 58px;
+                border-radius: 14px;
+                margin-right: 14px;
+            }
+
+            .app-icon {
+                border-radius: 13px;
+            }
+
+            .app-name {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="apps-wrapper">
+        <!-- Filter Chips (Rendered dynamically) -->
+        <div class="filter-chips" id="filterChips" role="tablist"></div>
+
+        <!-- Apps Grid (Rendered dynamically) -->
+        <div class="apps-container" id="appsContainer"></div>
+    </div>
+
+    <script>
+        // ==========================================
+        // MANAGE YOUR APPS LIST HERE
+        // Add, remove, or reorder apps easily
+        // ==========================================
+        const appsList = [
+            {
+                name: "TX3 Mini Remote - Tanix",
+                category: "Tools",
+                rating: "4.5",
+                icon: "assets/images/apps/tanixremote.png",
+                fallbackIcon: "https://play-lh.googleusercontent.com/OU1ImOjdpBjp2pyjxMdEbiyAGGlQ_mX8qeim4zf93IJaIKfdVpTuRInuRawqdc6S9nwG03C--iERAbdu35aVTp4=s128-rw",
+                url: "https://play.google.com/store/apps/details?id=io.github.chayanforyou.tanixremote"
+            },
+            {
+                name: "RGB LED Remote",
+                category: "Tools",
+                rating: "4.1",
+                icon: "assets/images/apps/rgbremote.png",
+                fallbackIcon: "https://play-lh.googleusercontent.com/enYGYpIdtZ-k7l_sJF0of6LGe8sFSEGjIJsydc5WExaX2o-vYMGzYcTQft18lygd3XShMRF0rLdurgUzTOyA=s128-rw",
+                url: "https://play.google.com/store/apps/details?id=io.github.chayanforyou.rgbremote"
+            },
+            {
+                name: "MP3 Player Remote",
+                category: "Tools",
+                rating: "3.7",
+                icon: "assets/images/apps/mp3remote.png",
+                fallbackIcon: "https://play-lh.googleusercontent.com/WI_U3LkgbIpvGzx93Zhq4A4hPFaFgwYgBcVUJP8ZqgpXh2sQO7hLpUTqkaxFjHyqmdKFIDRcuz0SIPLfItg0AtA=s128-rw",
+                url: "https://play.google.com/store/apps/details?id=io.github.chayanforyou.mp3remote"
+            },
+            {
+                name: "China TV Remote - 25 in 1",
+                category: "Tools",
+                rating: "4.3",
+                icon: "assets/images/apps/chinaremote.png",
+                fallbackIcon: "https://play-lh.googleusercontent.com/oUwjR2p4aEZMbt9cg6vnlAc4jUcnJKktdHOYe5jbW9LAZvrHPXfLx8IgjDrEJ6j9vX8UwbxD41T088wqxtyI=s128-rw",
+                url: "https://play.google.com/store/apps/details?id=io.github.chayanforyou.chinaremote"
+            },
+            {
+                name: "Sticky Notes + Widget",
+                category: "Productivity",
+                rating: "4.5",
+                icon: "assets/images/apps/stickynotes.png",
+                fallbackIcon: "https://play-lh.googleusercontent.com/0yyKU1eQfHUaWyy1NgKKY8XJhE0oBjczznCWnVyGmKvT8zHgKAO9KuR2Pub4GdCKGFUja3Td1ah0tjGDpiXXehQ=s128-rw",
+                url: "https://play.google.com/store/apps/details?id=io.github.chayanforyou.stickynotes"
+            },
+            {
+                name: "Quick Ball",
+                category: "Tools",
+                rating: "4.5",
+                icon: "assets/images/apps/quickball.png",
+                fallbackIcon: "https://play-lh.googleusercontent.com/SNXAYcgV8B-mdENE2q2dviaC_sfPuYZYonOpy9vCKZLtcWvDc2_GfKIDf7W-V-o5-UCOp9VKI_xyxvYWVb9s5w=s128-rw",
+                url: "https://play.google.com/store/apps/details?id=io.github.chayanforyou.quickball"
+            },
+            {
+                name: "Drive Safe",
+                category: "Auto & Vehicles",
+                rating: "4.5",
+                icon: "assets/images/apps/drivesafe.png",
+                fallbackIcon: "https://play-lh.googleusercontent.com/Z7FycOF5wuiD28IX-DcjuL45CRiqgfG-nU_70NhUKWCZlnLrA0aXDMc3HHy80s-CbfDXnuSNG4QILQ2la-JC5w=s128-rw",
+                url: "https://play.google.com/store/apps/details?id=io.github.chayanforyou.drivesafe"
+            }
+        ];
+
+        // Current filter state
+        let currentFilter = 'all';
+
+        // Render category chips
+        function renderFilterChips() {
+            const chipsContainer = document.getElementById('filterChips');
+
+            // Extract unique categories in order of appearance
+            const categories = ['all', ...new Set(appsList.map(app => app.category))];
+
+            chipsContainer.innerHTML = categories.map(cat => {
+                const label = cat === 'all' ? 'All' : cat;
+                const isActive = cat === currentFilter ? ' active' : '';
+                return `<button class="chip${isActive}" onclick="filterCategory('${cat}', this)" role="tab">${label}</button>`;
+            }).join('');
+        }
+
+        // Render app list based on category filter
+        function renderApps(cat = 'all') {
+            const container = document.getElementById('appsContainer');
+            const filteredApps = cat === 'all'
+                ? appsList
+                : appsList.filter(app => app.category === cat);
+
+            // Layout row/column adjustment when filtered
+            if (cat === 'all') {
+                container.style.gridAutoFlow = 'column';
+                container.style.gridTemplateRows = 'repeat(3, auto)';
+            } else {
+                container.style.gridAutoFlow = 'row';
+                container.style.gridTemplateRows = 'none';
+            }
+
+            container.innerHTML = filteredApps.map((app, index) => {
+                return `
+                    <a href="${app.url}" 
+                       target="_blank" 
+                       rel="noopener noreferrer" 
+                       class="app-item" 
+                       data-category="${app.category}">
+                        <span class="app-rank">${index + 1}</span>
+                        <div class="app-icon-wrapper">
+                            <img src="${app.icon}" 
+                                 alt="${app.name}" 
+                                 class="app-icon" 
+                                 loading="lazy"
+                                 onerror="this.src='${app.fallbackIcon}'">
+                        </div>
+                        <div class="app-details">
+                            <div class="app-name">${app.name}</div>
+                            <div class="app-category">${app.category}</div>
+                            <div class="app-rating">
+                                <span>${app.rating}</span>
+                                <svg class="star-icon" viewBox="0 0 24 24">
+                                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </a>
+                `;
+            }).join('');
+        }
+
+        // Handle category chip click
+        function filterCategory(cat, buttonEl) {
+            currentFilter = cat;
+            document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+            if (buttonEl) buttonEl.classList.add('active');
+            renderApps(cat);
+        }
+
+        // Initial setup
+        renderFilterChips();
+        renderApps();
+    </script>
+</body>
+
+</html>
