@@ -16,11 +16,69 @@
         rel="stylesheet">
 
     <script>
-        // Support ?theme=light or ?theme=dark via URL query parameter
         const urlParams = new URLSearchParams(window.location.search);
+
+        // Support ?theme=light or ?theme=dark
         const themeParam = urlParams.get('theme')?.toLowerCase();
         if (themeParam === 'light' || themeParam === 'dark') {
             document.documentElement.setAttribute('data-theme', themeParam);
+        }
+
+        // Helper to format color with leading # if omitted and expand 3-digit hex
+        const formatColor = (c) => {
+            if (!c) return null;
+            let hex = c.startsWith('#') ? c.slice(1) : c;
+            if (hex.length === 3) {
+                hex = hex.split('').map(x => x + x).join('');
+            }
+            return hex.length === 6 ? `#${hex}` : (c.startsWith('#') ? c : `#${c}`);
+        };
+
+        // Support ?bg=HEX (e.g., ?bg=131314 or ?bg=212121 or ?bg=ffffff)
+        const bgParam = formatColor(urlParams.get('bg') || urlParams.get('background'));
+        if (bgParam) {
+            document.documentElement.style.setProperty('--bg-color', bgParam);
+
+            // Automatically derive chip-bg and hover-bg based on bg color
+            const hex = bgParam.replace('#', '');
+            if (hex.length === 6) {
+                const r = parseInt(hex.slice(0, 2), 16);
+                const g = parseInt(hex.slice(2, 4), 16);
+                const b = parseInt(hex.slice(4, 6), 16);
+                const isDark = (0.299 * r + 0.587 * g + 0.114 * b) < 128;
+
+                // For dark backgrounds, elevate chip (+15); for light backgrounds, darken chip (-14)
+                const offset = isDark ? 15 : -14;
+                const hoverOffset = isDark ? 10 : -7;
+
+                const clamp = (val) => Math.min(255, Math.max(0, val));
+                const toHex = (val) => clamp(val).toString(16).padStart(2, '0');
+
+                const derivedChipBg = `#${toHex(r + offset)}${toHex(g + offset)}${toHex(b + offset)}`;
+                const derivedHoverBg = `#${toHex(r + hoverOffset)}${toHex(g + hoverOffset)}${toHex(b + hoverOffset)}`;
+
+                document.documentElement.style.setProperty('--chip-bg', derivedChipBg);
+                document.documentElement.style.setProperty('--hover-bg', derivedHoverBg);
+            }
+        }
+
+        // Support ?title=HEX (app name color) and ?subtext=HEX (category/rating color)
+        const titleParam = formatColor(urlParams.get('title') || urlParams.get('text'));
+        if (titleParam) {
+            document.documentElement.style.setProperty('--text-primary', titleParam);
+        }
+
+        const subtextParam = formatColor(urlParams.get('subtext') || urlParams.get('subtitle'));
+        if (subtextParam) {
+            document.documentElement.style.setProperty('--text-secondary', subtextParam);
+            document.documentElement.style.setProperty('--rank-color', subtextParam);
+            document.documentElement.style.setProperty('--star-color', subtextParam);
+        }
+
+        // Explicit ?chip=HEX or ?chip_bg=HEX can still override if provided
+        const chipParam = formatColor(urlParams.get('chip') || urlParams.get('chip_bg'));
+        if (chipParam) {
+            document.documentElement.style.setProperty('--chip-bg', chipParam);
         }
     </script>
 
