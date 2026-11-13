@@ -381,6 +381,22 @@
         // ==========================================
         const appsList = [
             {
+                name: "Jelly Jailbreak: Puzzle Escape",
+                category: "Games",
+                rating: "",
+                icon: "assets/images/apps/jellyjailbreak.png",
+                fallbackIcon: "https://play-lh.googleusercontent.com/dGcJBwCvkyZ4o6-Em6SPLJ7dhY0rbChWv_PhhhCoWWvRLktnXpgjUgAUZa_RospJPLtDTuz2ZJi_vyqZy4qg=s128-rw",
+                url: "https://play.google.com/store/apps/details?id=io.github.chayanforyou.jellyjailbreak"
+            },
+            {
+                name: "Unlock Me: Brain Puzzle",
+                category: "Games",
+                rating: "",
+                icon: "assets/images/apps/unlockme.png",
+                fallbackIcon: "https://play-lh.googleusercontent.com/i3LWEfLqNdhrqPnuHnxzeE6gwnh_g0uq9aZVYwrb-5Fbg9TYzgW9EWzX-1poLU1Qg9a35uxPcTpOk3E4TxiX=s128-rw",
+                url: "https://play.google.com/store/apps/details?id=io.github.chayanforyou.unlockme"
+            },
+            {
                 name: "TX3 Mini Remote - Tanix",
                 category: "Tools",
                 rating: "4.5",
@@ -413,6 +429,14 @@
                 url: "https://play.google.com/store/apps/details?id=io.github.chayanforyou.chinaremote"
             },
             {
+                name: "Magic RGB LED Remote",
+                category: "Tools",
+                rating: "",
+                icon: "assets/images/apps/magicrgb.png",
+                fallbackIcon: "https://play-lh.googleusercontent.com/5jS80kTqS4W6zjXSDZThlKyEZw1o8eLZaL-ed9Pz-uMOsIBr2ItS06dmRp42W14-ZFqJGCkdaIhwDsiJypVpkQ=s128-rw",
+                url: "https://play.google.com/store/apps/details?id=io.github.chayanforyou.magicrgb"
+            },
+            {
                 name: "Sticky Notes + Widget",
                 category: "Productivity",
                 rating: "4.5",
@@ -435,6 +459,38 @@
                 icon: "assets/images/apps/drivesafe.png",
                 fallbackIcon: "https://play-lh.googleusercontent.com/Z7FycOF5wuiD28IX-DcjuL45CRiqgfG-nU_70NhUKWCZlnLrA0aXDMc3HHy80s-CbfDXnuSNG4QILQ2la-JC5w=s128-rw",
                 url: "https://play.google.com/store/apps/details?id=io.github.chayanforyou.drivesafe"
+            },
+            {
+                name: "OpenCV Bot - Object Tracking",
+                category: "Tools",
+                rating: "",
+                icon: "assets/images/apps/opencvbot.png",
+                fallbackIcon: "https://play-lh.googleusercontent.com/Hv3knUK3Bnrlwjm_KIAyaMnZZ0QjBzcw4ZDZFE0--JmNCMp_CqqbVMgxbE4ji6gFD5qOhTY5Y_neyvlwcPwpKDk=s128-rw",
+                url: "https://play.google.com/store/apps/details?id=io.github.chayanforyou.opencvbot"
+            },
+            {
+                name: "AVR Fuse Calculator",
+                category: "Tools",
+                rating: "5.0",
+                icon: "assets/images/apps/avrfusecalculator.png",
+                fallbackIcon: "https://play-lh.googleusercontent.com/J8LuSfMV1cAyvwQwsTgvIfKx3g3sk1xBvVzDhLgIYrABNyAXKyHyMUUHfsnvKCrLqWir9K_6V6QZYuabN_bu=s128-rw",
+                url: "https://play.google.com/store/apps/details?id=me.chayan.avrfusecalculator"
+            },
+            {
+                name: "PF Calculator",
+                category: "Tools",
+                rating: "5.0",
+                icon: "assets/images/apps/pfcalculator.png",
+                fallbackIcon: "https://play-lh.googleusercontent.com/KOy1ucklpRKxK68CGR6lPIhchsEFBaAYdFpha1UugCxIq-oFjnIVLxezro_pBP5GD6ZsIm6--6MqAsR4c1h7pw=s128-rw",
+                url: "https://play.google.com/store/apps/details?id=me.chayan.pfcalculator"
+            },
+            {
+                name: "BD Govt. Holiday 2026",
+                category: "Tools",
+                rating: "4.5",
+                icon: "assets/images/apps/bdgovtholiday.png",
+                fallbackIcon: "https://play-lh.googleusercontent.com/En6FOGYRVEGuNS8NSNT3E1tyfrhwH6h_wqW0sMre9p6eypArydbgsnSK2JuONarPbU0qsRRUPQ4Hz4-BgGdJ=s128-rw",
+                url: "https://play.google.com/store/apps/details?id=io.github.chayanforyou.bdgovtholiday"
             }
         ];
 
@@ -481,12 +537,12 @@
                         <div class="app-details">
                             <div class="app-name">${app.name}</div>
                             <div class="app-category">${app.category}</div>
-                            <div class="app-rating">
+                            ${app.rating ? `<div class="app-rating">
                                 <span>${app.rating}</span>
                                 <svg class="star-icon" viewBox="0 0 24 24">
                                     <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
                                 </svg>
-                            </div>
+                            </div>` : ''}
                         </div>
                     </a>
                 `;
