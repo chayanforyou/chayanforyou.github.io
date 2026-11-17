@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OpenCV Bot Privacy Policy</title>
+<meta name="description" content="How the OpenCV Bot Android app handles your data.">
+<style>
+  :root {
+    --bg: #f6f7f9;
+    --text: #14171c;
+    --muted: #5a5f67;
+    --rule: #e2e5ea;
+    --accent: #1d4ed8;
+    --card: #ffffff;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f1114;
+      --text: #e9ecf0;
+      --muted: #a6adaf;
+      --rule: #2a2e35;
+      --accent: #8ab4f8;
+      --card: #171a1f;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font: 17px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  main { max-width: 720px; margin: 0 auto; padding: 40px 16px 64px; }
+  h1 { font-size: 2rem; line-height: 1.2; margin: 0 0 8px; }
+  h2 { font-size: 1.25rem; margin: 40px 0 8px; padding-top: 16px; border-top: 1px solid var(--rule); }
+  p, ul { margin: 0 0 14px; }
+  ul { padding-left: 22px; }
+  li { margin-bottom: 6px; }
+  a { color: var(--accent); text-underline-offset: 3px; }
+  .meta { color: var(--muted); font-size: 0.95rem; margin-bottom: 24px; }
+  .summary { background: var(--card); border: 1px solid var(--rule); border-radius: 12px; padding: 16px 20px; margin-bottom: 14px; }
+  .summary ul { margin: 0; }
+  table { width: 100%; border-collapse: collapse; margin: 8px 0 16px; font-size: 0.95rem; }
+  th, td { text-align: left; vertical-align: top; padding: 8px 10px; border-bottom: 1px solid var(--rule); }
+  th { color: var(--muted); font-weight: 600; }
+  .table-wrap { overflow-x: auto; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Privacy Policy</h1>
+  <p class="meta">OpenCV Bot<br>Developer: Chayan Mistry<br>Effective date: 17 November 2026</p>
+
+  <p>This privacy policy explains how the OpenCV Bot Android app ("OpenCV Bot", "the app") handles your information. OpenCV Bot uses your phone's camera to detect an object by its color and sends the object's position to a robot over Bluetooth, so the robot can follow it.</p>
+
+  <div class="summary">
+    <ul>
+      <li>OpenCV Bot does not collect, store on a server, sell or share your personal information.</li>
+      <li>The app has no account, no ads, no analytics and no crash reporting.</li>
+      <li>Camera images are processed live on your device. They are never saved, recorded or uploaded.</li>
+      <li>The only data the app sends leaves over Bluetooth to the robot you choose, and it contains only the object's position and size.</li>
+    </ul>
+  </div>
+
+  <h2>1. Camera</h2>
+  <p>OpenCV Bot needs the camera for its core feature. When the color detection screen is open, the app analyzes each camera frame on your device with the OpenCV library to find the largest area matching the color you select.</p>
+  <ul>
+    <li>Frames are processed in memory and discarded right away.</li>
+    <li>The app does not take photos, record video or save any image to your device.</li>
+    <li>No camera image is sent over the internet or over Bluetooth.</li>
+  </ul>
+  <p>The camera is used only while the color detection screen is open.</p>
+
+  <h2>2. Bluetooth</h2>
+  <p>OpenCV Bot connects to a Bluetooth device you have already paired with your phone, such as an HC-05 module on your robot. The app shows the list of paired devices so you can pick one. This list stays on your device.</p>
+  <p>While connected, the app sends short text messages to the robot with the detected object's X and Y position and its size, for example <code>X120Y80A15</code>. These messages contain no personal information and go only to the device you selected. The app does not scan for or connect to any other device.</p>
+
+  <h2>3. Information stored on your device</h2>
+  <p>OpenCV Bot saves a small amount of information on your device only:</p>
+  <ul>
+    <li>How many times you have opened the app and the date of first launch, used to decide when to ask you to rate the app</li>
+    <li>Whether you chose not to be asked to rate the app again</li>
+  </ul>
+  <p>This information is not sent to the developer. It is deleted when you clear the app's data or uninstall the app. If Android backup is turned on, Android may include it in your device backup to your Google account.</p>
+
+  <h2>4. Permissions</h2>
+  <p>OpenCV Bot asks only for the permissions its features need. It does not request internet access.</p>
+  <div class="table-wrap">
+  <table>
+    <tr><th>Permission</th><th>Why it is used</th></tr>
+    <tr><td>Camera</td><td>Detect the colored object live on your device (see section 1)</td></tr>
+    <tr><td>Bluetooth / Nearby devices</td><td>List your paired devices, connect to the robot you choose and send it position data (see section 2)</td></tr>
+  </table>
+  </div>
+
+  <h2>5. Links to other websites</h2>
+  <p>The app contains links that open in your browser or in Google Play, such as the robot firmware page on GitHub and the app's Google Play page for ratings. Those websites are run by third parties and have their own privacy policies, including the <a href="https://policies.google.com/privacy">Google Privacy Policy</a> and the <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">GitHub Privacy Statement</a>.</p>
+
+  <h2>6. Data sharing</h2>
+  <p>OpenCV Bot does not share any information with third parties, because it does not collect any. The developer does not sell, rent or trade user data.</p>
+
+  <h2>7. Children's privacy</h2>
+  <p>OpenCV Bot is not directed at children under 13 and does not knowingly collect information from anyone, including children.</p>
+
+  <h2>8. Security</h2>
+  <p>Because OpenCV Bot processes camera frames on your device and keeps its settings on your device, your information is protected by your device's own security, such as your screen lock and Android's app sandbox. Bluetooth data goes only to a device you paired yourself.</p>
+
+  <h2>9. Changes to this policy</h2>
+  <p>This policy may be updated when the app changes. The effective date at the top shows the latest version. Significant changes will also be noted in the app's release notes.</p>
+
+  <h2>10. Contact</h2>
+  <p>Questions about this policy or your data: <a href="mailto:chayanmistrry@gmail.com">chayanmistrry@gmail.com</a></p>
+</main>
+</body>
+</html>
